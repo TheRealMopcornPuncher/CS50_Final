@@ -1,9 +1,25 @@
-from flask import Flask, flash, jsonify, redirect, render_template, request, session
+from flask import Flask, render_template, redirect
 
 app = Flask(__name__)
 
+# Define the pages
+pages = ["Home", "Past", "Description"]
+
 @app.route("/")
 def index():
-    pages = ["Home", "Old", "New"]
-    currentPage = "Home"
-    return render_template("index.html", pages=pages, currentPage=currentPage)
+    return redirect("/home")
+
+@app.route("/home", methods=["GET", "POST"])
+def home():
+    currentPage = "home"  # Store in lowercase for use in links
+    return render_template("Home.html", pages=pages, currentPage=currentPage)
+
+@app.route("/past", methods=["GET", "POST"])
+def past():
+    currentPage = "past"  # Store in lowercase for use in links
+    return render_template("Past.html", pages=pages, currentPage=currentPage)
+
+@app.route("/description", methods=["GET", "POST"])
+def description():
+    currentPage = "description"  # Store in lowercase for use in links
+    return render_template("Description.html", pages=pages, currentPage=currentPage)

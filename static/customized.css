@@ -1,0 +1,46 @@
+/* Override Bootstrap button colors */
+.btn-primary {
+    background-color: #F2545B; /* Tomato red */
+    border-color: #F2545B;
+}
+/* Override navbar background color */
+.navbar {
+    background-color: #19323C; /* Darker background for the navbar */
+}
+
+/* Custom color for inactive nav links */
+.nav-link {
+    color: #19323C !important; /* Replace with your desired color */
+}
+
+/* Custom color for the active nav link */
+.nav-link.active {
+    color: #19323C !important; /* Replace with your desired active color */
+    background-color: #F2545B !important; /* Replace with your background color */
+}
+
+.card-header {
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: #F3F7F0;
+    border-bottom: 1px solid #F3F7F0;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #f3f7f0;
+    text-align: left;
+    background-color: #19323C;
+}
+
+.img-thumbnail {
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background-color: transparent !important; /* Removes any background */
+    box-shadow: none !important; /* Removes any shadow if Bootstrap applies one */
+}

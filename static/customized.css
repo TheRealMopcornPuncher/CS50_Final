@@ -44,3 +44,7 @@ body {
     background-color: transparent !important; /* Removes any background */
     box-shadow: none !important; /* Removes any shadow if Bootstrap applies one */
 }
+
+hr.solid {
+    border-top: 3px solid #bbb;
+  }

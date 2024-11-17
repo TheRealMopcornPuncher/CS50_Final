@@ -1,1 +1,35 @@
-{% extends "home.html" %}
+{% extends "layout.html" %}
+
+{% block content %}
+<table class="table table-hover table-dark mx-auto text-center" style="width: 100%; table-layout: fixed;">
+    <colgroup>
+        <col style="width: 33%;">
+        <col style="width: 33%;">
+        <col style="width: 33%;">
+    </colgroup>
+    <thead>
+        <tr class="align-middle">
+            <th scope="col">Topic Category</th>
+            <th scope="col">Date</th>
+            <th scope="col">Page</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="align-middle">
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+        </tr>
+        <tr class="align-middle">
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+        </tr>
+        <tr class="align-middle">
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}

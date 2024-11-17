@@ -1,4 +1,7 @@
 from flask import Flask, render_template, redirect
+import sqlite3
+
+conn = sqlite3.connect('summaries.db')
 
 app = Flask(__name__)
 

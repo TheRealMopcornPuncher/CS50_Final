@@ -1,1 +1,18 @@
-{% extends "home.html" %}
+{% extends "layout.html" %}'
+
+{% block content %}
+<div class="container d-flex justify-content-center mt-5" style="min-height: calc(100vh - 56px);">
+    <div class="text-center" style="max-width: 400px; width: 100%; margin-top: auto; margin-bottom: 25%;">
+        <h1>About this site!</h1>
+
+        <hr class="solid">
+
+        <p>Newthy is an artificial intelligence powered article summarizer website constructed with
+            intent of providing reliable information within a bite size. The reliability factor is determined
+            by a system devised to collect the most commonly repeated topics, then generate a summary based
+            on them. Through the "Greatest Common Factor" style of filtering and summarizing, a user can read
+            up on information that is most likely true to the amount of repetitions for said information.
+        </p>
+    </div>
+</div>
+{% endblock %}

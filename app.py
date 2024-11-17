@@ -1,5 +1,8 @@
 from flask import Flask, render_template, redirect
 import sqlite3
+from transformers import pipeline
+
+pipe = pipeline("feature-extraction", model="nvidia/NV-Embed-v2", trust_remote_code=True)
 
 conn = sqlite3.connect('summaries.db')
 

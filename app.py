@@ -1,4 +1,5 @@
 from flask import Flask, render_template, redirect
+import keyword_extractor
 import sqlite3
 
 conn = sqlite3.connect('summaries.db')
@@ -26,3 +27,8 @@ def past():
 def description():
     currentPage = "description"  # Store in lowercase for use in links
     return render_template("Description.html", pages=pages, currentPage=currentPage)
+
+@app.route("/summary", methods=["GET", "POST"])
+def summary():
+    currentPage = "summary"  # Store in lowercase for use in links
+    return render_template("Summary.html", pages=pages, currentPage=currentPage)

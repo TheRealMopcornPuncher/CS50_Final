@@ -6,11 +6,11 @@
         <img src="\static\ARNAVAC.png" class="img-thumbnail border-0" width="50%" height="50%">
         <div class="form-group">
             <label for="searchTopic">Topic to search</label>
-            <input type="text" class="form-control mx-auto" style="width: 100%;" id="searchTopic" placeholder="Enter topic here">
+            <form method="POST" action="/home">
+                <input type="text" name="searchTopic" id="searchTopic" class="form-control" placeholder="Enter topic here" required>
+                <button type="submit" class="btn btn-primary mt-2">Search</button>
+            </form>
         </div>
-        <form method="post" action="/search">
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
     </div>
 </div>
 {% endblock %}

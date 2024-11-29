@@ -9,27 +9,19 @@
     </colgroup>
     <thead>
         <tr class="align-middle">
-            <th scope="col">Topic Category</th>
+            <th scope="col">Search</th>
             <th scope="col">Date</th>
-            <th scope="col">Page</th>
+            <th scope="col">Summary</th>
         </tr>
     </thead>
     <tbody>
+        {% for summary in summaries %}
         <tr class="align-middle">
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
+            <td>{{ summary['id'] }}</td>
+            <td>{{ summary['date_created'] }}</td>
+            <td>{{ summary['summary'] }}</td>
         </tr>
-        <tr class="align-middle">
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-        </tr>
-        <tr class="align-middle">
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-        </tr>
+        {% endfor %}
     </tbody>
 </table>
 {% endblock %}

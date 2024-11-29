@@ -31,11 +31,19 @@ class KeywordExtractor:
         """
         # Tokenize and encode the text
         inputs = self.tokenizer(text, return_tensors="pt", truncation=True, max_length=512)
+
+        if "input_ids" not in inputs or len(inputs["input_ids"]) == 0:
+            raise ValueError("Tokenization failed. Please check the input text.")
+
         with torch.no_grad():
             outputs = self.model(**inputs)
 
         # Get token embeddings
         token_embeddings = outputs.last_hidden_state[0]
+
+        input_ids = inputs["input_ids"][0]
+        if len(input_ids) != len(token_embeddings):
+            raise ValueError("Mismatch between tokens and embeddings.")
 
         # Compute sentence embedding
         sentence_embedding = token_embeddings.mean(dim=0, keepdim=True)
@@ -46,24 +54,51 @@ class KeywordExtractor:
         ).flatten()
 
         # Map token IDs to words
-        tokens = self.tokenizer.convert_ids_to_tokens(inputs["input_ids"][0])
+        tokens = self.tokenizer.convert_ids_to_tokens(input_ids)
 
-        # Sort tokens by similarity and filter out stopwords and special tokens
+        # Reconstruct words while maintaining alignment
+        words = []
+        indices = []  # Track the original indices of reconstructed words
+        current_word = ""
+        for idx, token in enumerate(tokens):
+            if token.startswith("##"):
+                # Merge subword with the current word
+                current_word += token[2:]
+            else:
+                # Append the completed word and start a new one
+                if current_word:
+                    words.append(current_word)
+                    indices.append(idx - 1)  # Record the index of the completed word
+                current_word = token
+
+        if current_word:  # Add the last word if any
+            words.append(current_word)
+            indices.append(len(tokens) - 1)
+
+        # Filter similarities to match the reconstructed words
+        filtered_similarities = [similarities[i] for i in indices]
+
+        # Sort words by similarity
         token_scores = sorted(
-            [(tokens[i], score) for i, score in enumerate(similarities)],
+            [(words[i], score) for i, score in enumerate(filtered_similarities)],
             key=lambda x: x[1],
             reverse=True,
         )
+
+        # Extract top keywords
         keywords = []
-        for token, _ in token_scores:
-            token = token.replace("##", "")  # Merge subwords
+        seen = set()
+        for word, _ in token_scores:
+            word = word.lower()
             if (
-                token not in self.stopwords  # Remove stopwords
-                and token not in self.tokenizer.all_special_tokens  # Remove special tokens
-                and token not in string.punctuation  # Remove punctuation
-                and len(token) > 2  # Remove very short tokens
+                word not in self.stopwords
+                and word not in string.punctuation
+                and len(word) > 2
+                and word not in seen
             ):
-                keywords.append(token)
+                keywords.append(word)
+                seen.add(word)
+
             if len(keywords) == top_n:
                 break
 

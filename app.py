@@ -1,8 +1,4 @@
 from flask import Flask, render_template, redirect, request
-from helpers.keyword_extractor import KeywordExtractor
-from helpers.combine_wordlist import combine_wordlist
-from helpers.gen_hash import gen_hash
-from helpers.most_repeated import most_repeated_word
 from helpers.article_retrieve import process_news
 import sqlite3
 
@@ -52,7 +48,7 @@ def past():
 @app.route("/description", methods=["GET", "POST"])
 def description():
     currentPage = "description"
-    return render_template("Description.html", pages=pages, currentPage=currentPage)
+    return render_template("Description", pages=pages, currentPage=currentPage)
 
 # Save the generated summary to the database
 def save_summary_to_db(query, summary):

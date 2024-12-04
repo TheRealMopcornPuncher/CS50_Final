@@ -36,22 +36,6 @@ def fetch_articles(query, start_date, end_date, api_key=API_KEY):
         print(f"Error: {response.status_code}, {response.text}")
         return []
 
-
-def combine_articles(articles):
-    """
-    Combine the content, description, and title of all articles into a single string for summarization.
-    """
-    combined_text = ""
-    for article in articles:
-        title = article.get("title", "")
-        description = article.get("description", "")
-        content = article.get("content", "")
-        
-        combined_text += f"{title} {description} {content} "
-    
-    return combined_text
-
-
 def split_into_chunks(text, max_tokens=1024):
     """
     Split text into chunks that are within the token limit of the model.
@@ -73,17 +57,30 @@ def split_into_chunks(text, max_tokens=1024):
     
     return chunks
 
+def combine_articles(articles):
+    """
+    Combine the content, description, and title of all articles into a single string for summarization.
+    """
+    combined_text = ""
+    for article in articles:
+        title = article.get("title", "")
+        description = article.get("description", "")
+        content = article.get("content", "")
+        
+        combined_text += f"{title} {description} {content} "
+    
+    return combined_text
 
 def summarize_articles(text):
     """
-    Summarize the combined article text using DistilBART, splitting it into smaller chunks if necessary.
+    Summarizes the combined article texts using DistilBART, splitting it into smaller chunks if necessary.
     """
     # Split the article into chunks
     chunks = split_into_chunks(text)
     
     summaries = []
     for chunk in chunks:
-        # Dynamically adjust max_length based on input length but within reasonable bounds
+        # Dynamically adjust max_length based on input length, but within reasonable bounds
         input_length = len(chunk.split())
         
         # Ensure max_length is at least 8 and at most 150

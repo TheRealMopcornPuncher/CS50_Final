@@ -48,7 +48,7 @@ def past():
 @app.route("/description", methods=["GET", "POST"])
 def description():
     currentPage = "description"
-    return render_template("Description", pages=pages, currentPage=currentPage)
+    return render_template("Description.html", pages=pages, currentPage=currentPage)
 
 # Save the generated summary to the database
 def save_summary_to_db(query, summary):
